@@ -1,148 +1,171 @@
-## Customer Conversion Analysis for Online Shopping Using Clickstream Data
-
+## Tesla Stock Price Prediction Using SimpleRNN and LSTM
 ## Project Overview
-This project focuses on analyzing e-commerce clickstream data to predict customer conversion, estimate potential revenue, and perform customer segmentation based on browsing behavior.
-The solution covers the complete machine learning pipeline, including:
-•	Data preprocessing 
-•	Exploratory Data Analysis (EDA) 
-•	Feature engineering 
-•	Model building and evaluation 
-•	Deployment using a Streamlit web application 
+
+This project focuses on predicting Tesla's future closing stock prices using deep learning models. The solution compares SimpleRNN and LSTM models for 1-day, 5-day and 10-day ahead forecasting, evaluates their performance using MSE, RMSE and MAE, and performs LSTM hyperparameter tuning using GridSearchCV.
 
 ## Domain
-## E-commerce Analytics | Data Science | Machine Learning
+
+Financial Analytics | Data Science | Deep Learning | Time-Series Forecasting
 
 ## Problem Statement
-E-commerce platforms generate massive volumes of clickstream data that capture user browsing behavior. However, extracting meaningful insights from this data is challenging.
-The goal of this project is to build an intelligent system that can:
-•	Predict whether a customer will complete a purchase 
-•	Estimate the revenue a customer is likely to generate 
-•	Segment customers into meaningful groups 
+
+Tesla stock prices are highly dynamic and can be affected by market trends, volatility and external events. The objective is to develop a time-series forecasting system that can predict future Tesla closing prices and compare the performance of SimpleRNN and LSTM architectures.
 
 ## Business Use Cases
-•	Customer Conversion Prediction 
-•	Revenue Forecasting 
-•	Customer Segmentation 
-•	Targeted Marketing Campaigns 
-•	Churn Reduction 
-•	Product Recommendation Optimization 
+Short-Term Stock Price Forecasting
+Investment Decision Support
+Risk & Volatility Assessment
+Portfolio Planning
+Market Trend Analysis
+Financial Analyst Decision Support
+News-Sentiment-Based Market Analysis
 
 ## Dataset Description
-## Dataset Source: UCI Machine Learning Repository – Clickstream Data
-## Key Features
-Column Name	Description
-Year	Year of session
-Month	Month of session
-Day	Day of the month
-Order	Click sequence
-Country	User country
-Session ID	Unique session identifier
-Main Category	Product category
-Clothing Model	Product ID
-Colour	Product color
-Location	Page image location
-Model Photography	Photography type
-Price	Product price (USD)
-Price 2	Price above category average
-Page	Page number visited
 
-##  Approach
-## 1️⃣ Data Preprocessing
-•	Handling missing values 
-•	Removing irrelevant/high-cardinality features 
-•	Encoding categorical variables 
-•	Feature scaling using StandardScaler 
+Dataset: Tesla historical stock-price data (TSLA.csv)
 
-## 2️⃣ Exploratory Data Analysis (EDA)
-•	Univariate analysis (distribution) 
-•	Bivariate analysis (relationships) 
-•	Correlation heatmap 
-•	Session behavior analysis 
-•	Outlier detection 
+Records: 2,416
+Period: June 2010 – February 2020
+Features: Date, Open, High, Low, Close, Adj Close, Volume.
 
-## 3️⃣ Feature Engineering
-Created meaningful features to capture user behavior:
-•	Session Features 
-o	total_clicks 
-o	avg_price 
-o	max_page 
-o	unique_products 
-•	Behavioral Features 
-o	high_price_view 
-o	is_weekend 
+## Approach
 
-## 4️⃣ Modeling Techniques
-## 🔹 Classification (Customer Conversion)
-•	Logistic Regression 
-•	Decision Tree 
-•	Random Forest ✅ (Final Model) 
+1️⃣ Data Preprocessing
 
-## 🔹 Regression (Revenue Prediction)
-•	Linear Regression 
-•	Gradient Boosting Regressor ✅ (Final Model) 
+Missing-value checking
+Duplicate checking
+Date conversion and sorting
+Time-series train/test split
+MinMax scaling
+Training-only scaler fitting to avoid data leakage.
 
-## 🔹 Clustering (Customer Segmentation)
-•	K-Means Clustering ✅ (Final Model) 
+2️⃣ Exploratory Data Analysis
 
-## 5️⃣ Model Evaluation
-## Classification Metrics
-•	Accuracy 
-•	Precision 
-•	Recall 
-•	F1-score 
-•	ROC-AUC 
-## Regression Metrics
-•	MAE 
-•	RMSE 
-•	R² Score 
-## Clustering Metrics
-•	Silhouette Score 
-•	Davies–Bouldin Index 
+Closing-price trend
+Trading volume
+Moving averages
+Daily returns / volatility
+Feature distributions
+Correlation analysis
+Outlier analysis.
 
-## 6️⃣ Model Saving & Pipelines
-•	Models saved using joblib 
-•	Reusable ML workflow created 
-•	Supports deployment and inference 
+3️⃣ Feature Engineering
+Main prediction feature:
 
-## 🌐 Streamlit Application
-🔹 Features
-•	User-friendly input interface 
-•	Real-time predictions 
-🔹 Outputs
-•	Customer Conversion (Yes / No) 
-•	Estimated Revenue 
-•	Customer Segment (Cluster) 
-🔹 Tech Stack
-•	Built using Streamlit 
-•	Integrated trained ML models 
-•	Supports real-time predictions 
+Adjusted Closing Price
+
+A 60-day historical window is used to predict:
+
+1-day ahead
+5-day ahead
+10-day ahead.
+
+4️⃣ Modeling Techniques
+
+🔹 Deep Learning – Time Series
+
+SimpleRNN
+LSTM
+
+🔹 Hyperparameter Optimization
+
+GridSearchCV
+Units
+Dropout
+Learning Rate
+
+🔹 NLP Extension
+
+VADER sentiment analysis on Tesla news headlines.
+5️⃣ Model Evaluation
+
+Evaluation Metrics
+
+MSE
+RMSE
+MAE
+
+Lower RMSE/MAE indicates better prediction performance.
+
+6️⃣ Forecasting
+
+The project performs:
+
+1-day prediction
+5-day prediction
+10-day prediction
+10-day recursive forward forecasting using the LSTM 1-day model.
+7️⃣ Model Comparison
+
+Based on the actual .md evaluation output:
+
+Horizon	Better Model
+1-Day	LSTM
+5-Day	SimpleRNN
+10-Day	SimpleRNN
+
+The corresponding RMSE values in the file are approximately:
+
+Horizon	LSTM	SimpleRNN
+1-Day	26.45	27.08
+5-Day	42.28	40.67
+10-Day	51.10	46.87
+
+8️⃣ Hyperparameter Tuning
+
+GridSearchCV tested:
+
+Units: 32, 64
+Dropout: 0.2, 0.3
+Learning rate: 0.001, 0.005
+
+The best CV configuration recorded in the file is:
+
+64 units + 0.3 dropout + 0.005 learning rate.
+
+9️⃣ NLP — News Sentiment
+
+Tesla-related headlines are cleaned and analysed using VADER sentiment analysis. Sentiment scores are then compared with same-day Tesla returns.
+
+This provides a pathway to add news sentiment as an additional model input, rather than relying only on historical prices.
+
+🌐 Application / Business Output
+
+Your Tesla project can be presented as a Financial Decision Support System:
+
+Input → Historical Tesla Data + News Sentiment
+
+Processing → Preprocessing → 60-Day Sequence → Deep Learning Model
+
+Output →
+
+Predicted stock price
+Forecast horizon
+Model performance
+Risk/trend information
+Optional sentiment signal
 
 ## 📈 Skills Learned
-•	Data Cleaning & Preprocessing 
-•	Exploratory Data Analysis (EDA) 
-•	Feature Engineering 
-•	Machine Learning (Supervised & Unsupervised) 
-•	Model Evaluation & Tuning 
-•	End-to-End ML Pipeline Development 
-•	Streamlit Web App Development 
-•	Model Deployment 
-
-## 🧰 Technology Stack
+Data Cleaning & Preprocessing
+Time-Series EDA
+Feature Engineering
+Deep Learning
+SimpleRNN
+LSTM
+Model Evaluation
+Hyperparameter Tuning
+Recursive Forecasting
+NLP / Sentiment Analysis
+End-to-End ML Pipeline
+🧰 Technology Stack
 Category	Tools
 Programming	Python
 Data Handling	Pandas, NumPy
 Visualization	Matplotlib, Seaborn
 Machine Learning	Scikit-learn
-Model Saving	Joblib
-Web App	Streamlit
+Deep Learning	TensorFlow / Keras
+NLP	VADER
+Model Tuning	GridSearchCV / SciKeras
+Model Saving	Keras model files
 
-## 📦 Project Deliverables
-•	Data preprocessing & feature engineering notebooks 
-•	Model training scripts 
-•	Trained model files (.pkl) 
-•	Streamlit application (app.py) 
-•	Model evaluation results 
-•	requirements.txt 
-•	Project documentation (README.md) 
-.
-
+The actual notebook uses TensorFlow/Keras, Scikit-learn, Pandas, NumPy, Matplotlib and Seaborn.
