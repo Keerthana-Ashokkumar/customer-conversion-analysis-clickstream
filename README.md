@@ -237,7 +237,3 @@ The application loads the trained classification, regression, and clustering mod
 • Project documentation (README)
 
 ---
-
-## 🎯 Project Objective
-
-The main objective of this project is to use customer clickstream behavior to help e-commerce businesses improve conversion rates, forecast revenue, create customer segments, and support data-driven marketing decisions.
